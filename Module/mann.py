@@ -60,7 +60,7 @@ class MANN(nn.Module):
             self.prev_read = w_read
             self.prev_write = w_write
             self.prev_usage = self.gamma * self.prev_usage + w_read + w_write
-            self.prev_lu = self.compute_least_use(self.prev_lu)
+            self.prev_lu = self.compute_least_use(self.prev_usage)
     
     @staticmethod
     def compute_least_use(w_u):
