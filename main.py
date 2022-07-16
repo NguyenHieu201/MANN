@@ -70,7 +70,7 @@ input = torch.tensor(data["test"]["X"])
 prediction, h, gate, w_read = mann(input)
 prediction = prediction.detach().numpy()
 true_value = data["test"]["Y"]
-plt.plot(true_value, 'k', label="True value")
+# plt.plot(true_value, 'k', label="True value")
 plt.plot(prediction, 'r', label="Prediction")
 plt.legend()
 plt.show()

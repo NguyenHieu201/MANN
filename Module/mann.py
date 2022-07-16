@@ -22,10 +22,10 @@ class MANN(nn.Module):
         
         self.out_net = nn.Linear(ctrl_dim + location_size, output_dim)
         
-        self.prev_read = torch.zeros(size=(1, locations))
-        self.prev_write = torch.zeros(size=(1, locations))
-        self.prev_lu = torch.zeros(size=(1, locations))
-        self.prev_usage = torch.zeros(size=(1, locations))
+        self.prev_read = torch.rand(size=(1, locations))
+        self.prev_write = torch.rand(size=(1, locations))
+        self.prev_lu = torch.rand(size=(1, locations))
+        self.prev_usage = torch.rand(size=(1, locations))
         
         self.gate = 0
         self.gamma = gamma
