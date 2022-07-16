@@ -4,7 +4,7 @@
     "input-dim": 22,
     "ctrl-dim": 5,
     "output-dim": 1,
-    "read-data-size": 20,
+    "read-data-size": 155,
     "locations": 800,
     "location-size": 150,
     "gamma": 0.1

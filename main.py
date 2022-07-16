@@ -36,8 +36,36 @@ save_path = "./Weight/mann.pth"
 
 mann = MANN(input_dim, output_dim, ctrl_dim, locations, location_size, gamma)
 
-# mann.load_state_dict(torch.load(save_path))
-# mann.eval()
+mann.load_state_dict(torch.load(save_path))
+mann.eval()
+input = torch.tensor(data["test"]["X"])
+prediction, h, gate, w_read = mann(input)
+prediction = prediction.detach().numpy()
+true_value = data["test"]["Y"]
+plt.plot(true_value, 'k', label="True value")
+plt.plot(prediction, 'r', label="Prediction")
+plt.legend()
+plt.show()
+
+
+# loss_fn = MSELoss()
+# optimizer = optim.Adam(mann.parameters())
+
+# epochs = 10
+
+# for epoch in tqdm(range(epochs)):
+#     for x, y in dataloader:
+#         optimizer.zero_grad()
+#         output, h, gate, w_read = mann(x)
+#         loss = loss_fn(output, y.view(-1))
+#         loss.backward()
+#         optimizer.step()
+#         mann.update_memory(h, gate, w_read)
+        
+        
+# save model
+# torch.save(mann.state_dict(), save_path)
+
 # input = torch.tensor(data["test"]["X"])
 # prediction, h, gate, w_read = mann(input)
 # prediction = prediction.detach().numpy()
@@ -46,32 +74,4 @@ mann = MANN(input_dim, output_dim, ctrl_dim, locations, location_size, gamma)
 # plt.plot(prediction, 'r', label="Prediction")
 # plt.legend()
 # plt.show()
-
-
-loss_fn = MSELoss()
-optimizer = optim.Adam(mann.parameters())
-
-epochs = 10
-
-for epoch in tqdm(range(epochs)):
-    for x, y in dataloader:
-        optimizer.zero_grad()
-        output, h, gate, w_read = mann(x)
-        loss = loss_fn(output, y.view(-1))
-        loss.backward()
-        optimizer.step()
-        mann.update_memory(h, gate, w_read)
-        
-        
-# save model
-torch.save(mann.state_dict(), save_path)
-
-input = torch.tensor(data["test"]["X"])
-prediction, h, gate, w_read = mann(input)
-prediction = prediction.detach().numpy()
-true_value = data["test"]["Y"]
-# plt.plot(true_value, 'k', label="True value")
-plt.plot(prediction, 'r', label="Prediction")
-plt.legend()
-plt.show()
     
