@@ -13,30 +13,29 @@ def get_data(folder, src_name):
 
 
 def time_series_processing(data, mode, setting):
-    match mode:
-        case "one-day":
-            n_sample = data.shape[0]
-            seq_len = setting["seq_len"]
-            x = [data[i : i+seq_len] for i in range(0, n_sample - seq_len)]
-            y = [data[i] for i in range(seq_len, n_sample)]
-            return {
-                "X": np.array(x, dtype=np.float32),
-                "Y": np.array(y, dtype=np.float32).reshape(-1, 1)
-            }
+    if mode == "one-day":
+        n_sample = data.shape[0]
+        seq_len = setting["seq_len"]
+        x = [data[i : i+seq_len] for i in range(0, n_sample - seq_len)]
+        y = [data[i] for i in range(seq_len, n_sample)]
+        return {
+            "X": np.array(x, dtype=np.float32),
+            "Y": np.array(y, dtype=np.float32).reshape(-1, 1)
+        }
             
-        case "test":
-            seq_len = 22
-            horizon = 3
-            n_sample = data.shape[0]
-            x = [data[i : i+seq_len] for i in range(0, n_sample-seq_len)]
-            y = [data[i : i+horizon] for i in range(seq_len, n_sample-horizon)]
-            n_sample = min(len(x), len(y))
-            x = x[:n_sample]
-            y = y[:n_sample]
-            return {
-                "X": np.array(x, dtype=np.float32),
-                "Y": np.array(y, dtype=np.float32)
-            }            
+    if mode == "test":
+        seq_len = 22
+        horizon = 3
+        n_sample = data.shape[0]
+        x = [data[i : i+seq_len] for i in range(0, n_sample-seq_len)]
+        y = [data[i : i+horizon] for i in range(seq_len, n_sample-horizon)]
+        n_sample = min(len(x), len(y))
+        x = x[:n_sample]
+        y = y[:n_sample]
+        return {
+            "X": np.array(x, dtype=np.float32),
+            "Y": np.array(y, dtype=np.float32)
+        }            
 
 
 def preprocessing(data, name, test_ratio, mode, setting):
