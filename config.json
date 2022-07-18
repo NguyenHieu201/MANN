@@ -1,5 +1,5 @@
 {
-    "mode" : "one-day",
+    "mode" : "future-day",
     "seq_len" : 22,
     "future": 5,
     "input-dim": 22,

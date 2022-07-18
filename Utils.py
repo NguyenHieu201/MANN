@@ -11,6 +11,15 @@ def get_data(folder, src_name):
     data = df.close.to_numpy()
     return data
 
+def load_time_data(folder, src_name, time_config):
+    path = os.path.join(folder, f"{src_name}.csv")
+    df = pd.read_csv(path)
+    start_day = time_config["start-day"]
+    finish_day = time_config["finish-day"]
+    time_cut_df = df[(df['datetime'] > start_day) & (df['datetime'] < finish_day)]
+    data = time_cut_df.close.to_numpy()
+    return data
+
 
 def time_series_processing(data, mode, setting):
     if mode == "one-day":
@@ -54,10 +63,7 @@ def time_series_processing(data, mode, setting):
 
 
 def preprocessing(data, name, test_ratio, mode, setting):
-    train, test = train_test_split(data, test_size=test_ratio, shuffle=False)
-
-    train = time_series_processing(data=train, mode=mode, setting=setting)
-    test = time_series_processing(data=test, mode=mode, setting=setting)
+    train = time_series_processing(data=data, mode=mode, setting=setting)
     # Scale data
     x_scaler = MinMaxScaler()
     y_scaler = MinMaxScaler()
@@ -65,13 +71,13 @@ def preprocessing(data, name, test_ratio, mode, setting):
     y_scaler.fit(train["Y"])
     train["X"] = x_scaler.transform(train["X"])
     train["Y"] = y_scaler.transform(train["Y"])
-    test["X"] = x_scaler.transform(test["X"])
-    test["Y"] = y_scaler.transform(test["Y"])
+    # test["X"] = x_scaler.transform(test["X"])
+    # test["Y"] = y_scaler.transform(test["Y"])
 
     return {
         "name": name,
         "train": train,
-        "test": test,
+        # "test": test,
         "x_scaler": x_scaler,
         "y_scaler": y_scaler
     }
