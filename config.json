@@ -1,11 +1,12 @@
 {
     "mode" : "one-day",
     "seq_len" : 22,
+    "future": 5,
     "input-dim": 22,
-    "ctrl-dim": 5,
+    "ctrl-dim": 15,
     "output-dim": 1,
-    "read-data-size": 155,
-    "locations": 800,
-    "location-size": 150,
+    "read-data-size": 45,
+    "locations": 300,
+    "location-size": 30,
     "gamma": 0.1
 }

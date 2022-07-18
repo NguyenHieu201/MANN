@@ -1,0 +1,8 @@
+{
+    "train-start": "2016-12-31 23:59:59",
+    "train-finish": "2021-01-01 00:00:00",
+    "test-start": "2020-12-31 23:59:59",
+    "test-finish": "2021-07-01 00:00:00",
+    "train": ["ACB", "BID", "HDB", "MBB", "STB", "TCB", "VCB", "VPB"],
+    "test": ["GVR", "POW", "TCB", "TPB", "VHM"]
+}

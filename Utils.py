@@ -35,7 +35,22 @@ def time_series_processing(data, mode, setting):
         return {
             "X": np.array(x, dtype=np.float32),
             "Y": np.array(y, dtype=np.float32)
-        }            
+        }   
+        
+    if mode == "future-day":     
+        n_sample = data.shape[0]
+        seq_len = setting["seq_len"]
+        future = setting["future"]
+        x = [data[i : i+seq_len] for i in range(0, n_sample - seq_len)]
+        # next day correspond with future = 1
+        y = [data[i] for i in range(seq_len + future - 1, n_sample)]
+        n_sample = min(len(x), len(y))
+        x = x[:n_sample]
+        y = y[:n_sample]
+        return {
+            "X": np.array(x, dtype=np.float32),
+            "Y": np.array(y, dtype=np.float32).reshape(-1, 1)
+        }    
 
 
 def preprocessing(data, name, test_ratio, mode, setting):
